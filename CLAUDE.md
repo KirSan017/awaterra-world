@@ -27,9 +27,19 @@ Every .md file has YAML frontmatter with required fields:
 - id, title, type (concept|scene|meta), domain, status (complete|draft|stub), tags, updated
 - Optional: related, illustratedBy, illustrates, characters
 
+## Deploy
+
+- Railway project: laudable-presence
+- URL: https://laudable-presence-production.up.railway.app
+- GitHub: KirSan017/awaterra-world (push to master triggers redeploy)
+- Volume: /app/data (persists content across deploys)
+- Env: CONTENT_DIR=/app/data, PORT=3000
+- Manual deploy: `railway up --detach` from project dir
+
 ## Key Rules
 
 - index.json is auto-generated — never edit manually, run build-index
 - All content in Russian
 - Frontmatter tags are lowercase Russian words
 - IDs are lowercase latin with hyphens (e.g. awaband, neuro-companion)
+- MSYS_NO_PATHCONV=1 required for Railway CLI paths on Windows/Git Bash
