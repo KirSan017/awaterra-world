@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Awaterra World</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Awaterra World</h1>
+    <div class="view-switcher">
+      <button class="active" data-view="tree">🌳 Дерево</button>
+      <button disabled data-view="graph">🔮 Граф</button>
+      <button disabled data-view="cloud">☁️ Облако</button>
+    </div>
+    <div class="stats" id="stats"></div>
+  </header>
+
+  <main>
+    <aside id="sidebar">
+      <div class="search-box">
+        <input type="text" id="search" placeholder="Поиск...">
+      </div>
+      <div id="tree"></div>
+      <button id="new-file-btn" class="btn-new">+ Новый файл</button>
+    </aside>
+
+    <section id="content">
+      <div id="empty-state">
+        <p>Выберите файл из дерева слева</p>
+      </div>
+      <div id="file-view" style="display:none">
+        <div id="metadata"></div>
+        <div class="toolbar">
+          <button id="btn-edit" class="btn">📝 Edit</button>
+          <button id="btn-preview" class="btn" style="display:none">👁 Preview</button>
+          <button id="btn-delete" class="btn btn-danger">🗑 Удалить</button>
+        </div>
+        <div id="preview"></div>
+        <div id="editor" style="display:none">
+          <textarea id="editor-body"></textarea>
+        </div>
+        <div id="actions" style="display:none">
+          <button id="btn-save" class="btn btn-primary">💾 Сохранить</button>
+          <button id="btn-cancel" class="btn">↩ Отмена</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- New file modal -->
+  <div id="modal-overlay" style="display:none">
+    <div id="modal">
+      <h3>Новый файл</h3>
+      <label>ID (латиница, дефисы):<input type="text" id="new-id"></label>
+      <label>Название:<input type="text" id="new-title"></label>
+      <label>Тип:
+        <select id="new-type">
+          <option value="concept">concept</option>
+          <option value="scene">scene</option>
+          <option value="meta">meta</option>
+        </select>
+      </label>
+      <label>Домен:
+        <select id="new-domain">
+          <option value="technology">technology</option>
+          <option value="daily-life">daily-life</option>
+          <option value="society">society</option>
+          <option value="substances">substances</option>
+          <option value="nature">nature</option>
+          <option value="culture">culture</option>
+          <option value="spaces">spaces</option>
+        </select>
+      </label>
+      <div class="modal-actions">
+        <button id="modal-create" class="btn btn-primary">Создать</button>
+        <button id="modal-cancel" class="btn">Отмена</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
