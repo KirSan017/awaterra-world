@@ -270,9 +270,11 @@ aside {
   cursor: pointer;
 }
 
-.meta-tag:hover {
+.meta-tag:hover,
+.meta-tag.active {
   border-color: var(--accent);
   color: var(--accent);
+  background: var(--accent-dim);
 }
 
 .meta-link {
@@ -440,6 +442,106 @@ aside {
   display: flex;
   gap: 8px;
   margin-top: 16px;
+}
+
+/* Active filter indicator */
+.filter-indicator {
+  padding: 6px 12px;
+  font-size: 11px;
+  color: var(--accent);
+  background: rgba(61,89,161,0.15);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.filter-indicator .clear-filter {
+  cursor: pointer;
+  color: var(--text-dim);
+  font-size: 14px;
+}
+
+.filter-indicator .clear-filter:hover {
+  color: var(--red);
+}
+
+/* Tag panel (collapsible, above tree) */
+.tag-panel {
+  border-bottom: 1px solid var(--border);
+}
+
+.tag-panel-header {
+  padding: 8px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-dim);
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tag-panel-header:hover {
+  color: var(--text);
+}
+
+.tag-panel-arrow {
+  font-size: 10px;
+  transition: transform 0.15s;
+}
+
+.tag-panel.collapsed .tag-panel-arrow {
+  transform: rotate(-90deg);
+}
+
+.tag-panel-body {
+  padding: 6px 12px 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  max-height: 140px;
+  overflow-y: auto;
+}
+
+.tag-panel.collapsed .tag-panel-body {
+  display: none;
+}
+
+.cloud-tag {
+  padding: 4px 10px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: all 0.15s;
+  line-height: 1.3;
+}
+
+.cloud-tag:hover,
+.cloud-tag.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-dim);
+}
+
+/* In sidebar tag panel, all tags same size */
+.tag-panel-body .cloud-tag {
+  font-size: 11px;
+}
+
+/* Graph canvas */
+#graph-canvas {
+  flex: 1;
+  cursor: grab;
+}
+
+#graph-canvas:active {
+  cursor: grabbing;
 }
 
 /* Scrollbar */

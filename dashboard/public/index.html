@@ -11,8 +11,7 @@
     <h1>Awaterra World</h1>
     <div class="view-switcher">
       <button class="active" data-view="tree">🌳 Дерево</button>
-      <button disabled data-view="graph">🔮 Граф</button>
-      <button disabled data-view="cloud">☁️ Облако</button>
+      <button data-view="graph">🔮 Граф</button>
     </div>
     <div class="stats" id="stats"></div>
   </header>
@@ -22,10 +21,15 @@
       <div class="search-box">
         <input type="text" id="search" placeholder="Поиск...">
       </div>
+      <div id="tag-panel" class="tag-panel collapsed">
+        <div class="tag-panel-header">🏷 Теги <span class="tag-panel-arrow">▼</span></div>
+        <div class="tag-panel-body"></div>
+      </div>
       <div id="tree"></div>
       <button id="new-file-btn" class="btn-new">+ Новый файл</button>
     </aside>
 
+    <canvas id="graph-canvas" style="display:none"></canvas>
     <section id="content">
       <div id="empty-state">
         <p>Выберите файл из дерева слева</p>
