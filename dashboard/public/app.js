@@ -2,7 +2,7 @@
 let index = null;
 let currentFile = null;
 let editMode = false;
-let activeFilter = null; // tag filter
+let activeFilter = null;
 let currentView = "tree"; // tree | graph
 
 // DOM refs
@@ -31,6 +31,30 @@ const btnCancel = $("#btn-cancel");
 const newFileBtn = $("#new-file-btn");
 const modalOverlay = $("#modal-overlay");
 
+// Domain colors — Awaterra's bioluminescent palette
+const DOMAIN_COLORS = {
+  technology: "#6b9fff",
+  "daily-life": "#5ae8b0",
+  society: "#ffd06b",
+  substances: "#ff6b8a",
+  nature: "#4ac8e8",
+  culture: "#b47aff",
+  spaces: "#7b8aff",
+  other: "#4a5578",
+};
+
+const DOMAIN_LABELS = {
+  technology: "Technology",
+  "daily-life": "Daily Life",
+  society: "Society",
+  substances: "Substances",
+  nature: "Nature",
+  culture: "Culture",
+  spaces: "Spaces",
+  meta: "Meta",
+  scenes: "Scenes",
+};
+
 // Boot
 async function init() {
   try {
@@ -43,15 +67,22 @@ async function init() {
     bindEvents();
   } catch (err) {
     console.error("Failed to load index:", err);
-    emptyState.querySelector("p").textContent =
-      "Ошибка загрузки данных. Проверьте сервер.";
+    $(".empty-title").textContent = "Connection Error";
+    $(".empty-sub").textContent = "Could not load data. Check server.";
   }
 }
 
-// Stats
+// ==================== STATS ====================
+
 function renderStats() {
   const s = index.stats;
-  statsEl.textContent = `${s.totalFiles} файлов \u00b7 ${s.totalWords.toLocaleString()} слов \u00b7 ${s.complete}\u2713 ${s.draft}\u270e ${s.stub}\u25a1`;
+  statsEl.innerHTML = `
+    <span class="stat-item"><span class="stat-value">${s.totalFiles}</span> files</span>
+    <span class="stat-item"><span class="stat-value">${s.totalWords.toLocaleString()}</span> words</span>
+    <span class="stat-item"><span class="stat-dot" style="background:var(--green)"></span> ${s.complete}</span>
+    <span class="stat-item"><span class="stat-dot" style="background:var(--yellow)"></span> ${s.draft}</span>
+    <span class="stat-item"><span class="stat-dot" style="background:var(--text-dim)"></span> ${s.stub}</span>
+  `;
 }
 
 // ==================== VIEW SWITCHER ====================
@@ -97,12 +128,12 @@ function renderTree() {
   metas.sort((a, b) => a.title.localeCompare(b.title, "ru"));
 
   let html = "";
-  if (metas.length) html += renderTreeGroup("meta", "meta", metas);
+  if (metas.length) html += renderTreeGroup("meta", metas);
   const sortedDomains = Object.keys(groups).sort();
   for (const domain of sortedDomains) {
-    html += renderTreeGroup(domain, domain, groups[domain]);
+    html += renderTreeGroup(domain, groups[domain]);
   }
-  if (scenes.length) html += renderTreeGroup("scenes", "scenes", scenes);
+  if (scenes.length) html += renderTreeGroup("scenes", scenes);
 
   treeEl.innerHTML = html;
 
@@ -114,12 +145,17 @@ function renderTree() {
   updateFilterIndicator();
 }
 
-function renderTreeGroup(id, label, nodes) {
+function renderTreeGroup(id, nodes) {
+  const label = DOMAIN_LABELS[id] || id;
   const complete = nodes.filter((n) => n.status === "complete").length;
+  const color = DOMAIN_COLORS[id] || DOMAIN_COLORS.other;
+
   let html = `<div class="tree-domain" data-group="${id}">`;
-  html += `<span class="arrow">\u25bc</span> ${label} `;
-  html += `<span class="count">(${complete}/${nodes.length})</span>`;
+  html += `<span class="arrow">\u25bc</span>`;
+  html += `<span style="color:${color}">${escapeHtml(label)}</span> `;
+  html += `<span class="count">${complete}/${nodes.length}</span>`;
   html += `</div><div class="tree-items" data-group="${id}">`;
+
   for (const node of nodes) {
     html += `<div class="tree-item" data-id="${node.id}">`;
     html += `<span class="status-dot ${node.status}"></span>`;
@@ -146,7 +182,7 @@ function updateFilterIndicator() {
 
   const indicator = document.createElement("div");
   indicator.className = "filter-indicator";
-  indicator.innerHTML = `\ud83c\udff7 <strong>${escapeHtml(activeFilter)}</strong> <span class="clear-filter">\u2715</span>`;
+  indicator.innerHTML = `Filtered by <strong>${escapeHtml(activeFilter)}</strong> <span class="clear-filter">\u2715</span>`;
   indicator.querySelector(".clear-filter").addEventListener("click", () => {
     clearFilter();
   });
@@ -159,7 +195,6 @@ function clearFilter() {
   $$(".tree-item").forEach((el) => el.classList.remove("hidden"));
   tagPanelBody.querySelectorAll(".cloud-tag").forEach((el) => el.classList.remove("active"));
   updateFilterIndicator();
-  // Also update meta tags if file is open
   $$(".meta-tag").forEach((el) => el.classList.remove("active"));
 }
 
@@ -168,15 +203,19 @@ function clearFilter() {
 function renderTagPanel() {
   const tags = index.tags;
   const entries = Object.entries(tags).sort((a, b) => b[1].length - a[1].length);
+
+  // Update count in header
+  tagPanel.querySelector(".tag-panel-count").textContent = `${entries.length}`;
+
   if (!entries.length) {
-    tagPanelBody.innerHTML = "<span style='color:var(--text-dim);font-size:11px'>Нет тегов</span>";
+    tagPanelBody.innerHTML = "<span style='color:var(--text-muted);font-size:11px'>No tags</span>";
     return;
   }
 
   let html = "";
   for (const [tag, ids] of entries) {
     const isActive = activeFilter === tag ? " active" : "";
-    html += `<span class="cloud-tag${isActive}" data-tag="${escapeHtml(tag)}" title="${ids.length} файлов">${escapeHtml(tag)}</span>`;
+    html += `<span class="cloud-tag${isActive}" data-tag="${escapeHtml(tag)}" title="${ids.length} files">${escapeHtml(tag)}</span>`;
   }
   tagPanelBody.innerHTML = html;
 }
@@ -192,19 +231,7 @@ let graphZoom = 1;
 let graphPan = { x: 0, y: 0 };
 let graphPanning = false;
 let graphPanStart = { x: 0, y: 0 };
-
-const DOMAIN_COLORS = {
-  technology: "#7aa2f7",
-  "daily-life": "#9ece6a",
-  society: "#e0af68",
-  substances: "#f7768e",
-  nature: "#73daca",
-  culture: "#bb9af7",
-  spaces: "#7dcfff",
-  other: "#565f89",
-};
-
-const TYPE_SHAPES = { concept: "circle", scene: "diamond", meta: "square" };
+let graphHovered = null;
 
 function renderGraph() {
   const canvas = graphCanvas;
@@ -212,7 +239,6 @@ function renderGraph() {
   canvas.width = mainRect.width;
   canvas.height = mainRect.height;
 
-  // Reset zoom/pan
   graphZoom = 1;
   graphPan = { x: 0, y: 0 };
 
@@ -227,7 +253,7 @@ function renderGraph() {
       y: cy + Math.sin(angle) * r + (Math.random() - 0.5) * 50,
       vx: 0,
       vy: 0,
-      radius: n.status === "stub" ? 6 : 8 + Math.min(n.wordCount / 500, 8),
+      radius: n.status === "stub" ? 5 : 7 + Math.min(n.wordCount / 500, 9),
     };
   });
 
@@ -238,7 +264,6 @@ function renderGraph() {
     .filter((e) => nodeMap[e.from] && nodeMap[e.to])
     .map((e) => ({ source: nodeMap[e.from], target: nodeMap[e.to], type: e.type }));
 
-  // Start simulation
   if (graphAnimFrame) cancelAnimationFrame(graphAnimFrame);
   let iterations = 0;
 
@@ -246,7 +271,6 @@ function renderGraph() {
     iterations++;
     const alpha = Math.max(0.01, 1 - iterations / 300);
 
-    // Repulsion between all nodes
     for (let i = 0; i < graphNodes.length; i++) {
       for (let j = i + 1; j < graphNodes.length; j++) {
         const a = graphNodes[i];
@@ -264,7 +288,6 @@ function renderGraph() {
       }
     }
 
-    // Attraction along edges
     for (const edge of graphEdges) {
       const dx = edge.target.x - edge.source.x;
       const dy = edge.target.y - edge.source.y;
@@ -278,20 +301,17 @@ function renderGraph() {
       edge.target.vy -= fy;
     }
 
-    // Center gravity
     for (const node of graphNodes) {
       node.vx += (cx - node.x) * 0.001 * alpha;
       node.vy += (cy - node.y) * 0.001 * alpha;
     }
 
-    // Apply velocity with damping
     for (const node of graphNodes) {
       if (node === graphDragging) continue;
       node.vx *= 0.85;
       node.vy *= 0.85;
       node.x += node.vx;
       node.y += node.vy;
-      // Keep in bounds
       node.x = Math.max(20, Math.min(canvas.width - 20, node.x));
       node.y = Math.max(20, Math.min(canvas.height - 20, node.y));
     }
@@ -303,7 +323,6 @@ function renderGraph() {
   simulate();
 }
 
-// Convert screen coords to world coords (accounting for zoom/pan)
 function screenToWorld(sx, sy) {
   return {
     x: (sx - graphPan.x) / graphZoom,
@@ -320,28 +339,55 @@ function drawGraph() {
   ctx.translate(graphPan.x, graphPan.y);
   ctx.scale(graphZoom, graphZoom);
 
-  // Draw edges
-  ctx.lineWidth = 0.5 / graphZoom;
+  // Edges
   for (const edge of graphEdges) {
-    ctx.strokeStyle = edge.type === "related" ? "rgba(122,162,247,0.25)" : "rgba(158,206,106,0.2)";
+    const isHoveredEdge = graphHovered && (edge.source === graphHovered || edge.target === graphHovered);
+    const color = DOMAIN_COLORS[edge.source.domain] || DOMAIN_COLORS.other;
+
+    if (isHoveredEdge) {
+      ctx.strokeStyle = color;
+      ctx.globalAlpha = 0.5;
+      ctx.lineWidth = 1.5 / graphZoom;
+    } else {
+      ctx.strokeStyle = "rgba(107, 159, 255, 0.08)";
+      ctx.globalAlpha = 1;
+      ctx.lineWidth = 0.5 / graphZoom;
+    }
     ctx.beginPath();
     ctx.moveTo(edge.source.x, edge.source.y);
     ctx.lineTo(edge.target.x, edge.target.y);
     ctx.stroke();
   }
+  ctx.globalAlpha = 1;
 
-  // Draw nodes
+  // Nodes
   for (const node of graphNodes) {
     const color = DOMAIN_COLORS[node.domain] || DOMAIN_COLORS.other;
     const isActive = currentFile && currentFile.id === node.id;
     const isHovered = graphHovered === node;
+    const isConnected = graphHovered && graphEdges.some(
+      (e) => (e.source === graphHovered && e.target === node) || (e.target === graphHovered && e.source === node)
+    );
+    const dimmed = graphHovered && !isHovered && !isConnected;
 
+    const r = isHovered ? node.radius * 1.4 : node.radius;
+
+    // Glow halo for hovered/active
+    if (isHovered || isActive) {
+      const grad = ctx.createRadialGradient(node.x, node.y, r, node.x, node.y, r * 3);
+      grad.addColorStop(0, color.replace(")", ",0.2)").replace("rgb", "rgba"));
+      grad.addColorStop(1, "transparent");
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(node.x, node.y, r * 3, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    ctx.globalAlpha = dimmed ? 0.15 : node.status === "stub" ? 0.35 : 0.9;
     ctx.fillStyle = color;
-    ctx.globalAlpha = node.status === "stub" ? 0.4 : 0.85;
-
-    const r = isHovered ? node.radius * 1.3 : node.radius;
 
     if (node.type === "scene") {
+      // Diamond
       ctx.beginPath();
       ctx.moveTo(node.x, node.y - r);
       ctx.lineTo(node.x + r, node.y);
@@ -350,19 +396,33 @@ function drawGraph() {
       ctx.closePath();
       ctx.fill();
     } else if (node.type === "meta") {
-      const s = r * 0.8;
-      ctx.fillRect(node.x - s, node.y - s, s * 2, s * 2);
+      // Rounded square
+      const s = r * 0.75;
+      const cr = 2;
+      ctx.beginPath();
+      ctx.moveTo(node.x - s + cr, node.y - s);
+      ctx.lineTo(node.x + s - cr, node.y - s);
+      ctx.quadraticCurveTo(node.x + s, node.y - s, node.x + s, node.y - s + cr);
+      ctx.lineTo(node.x + s, node.y + s - cr);
+      ctx.quadraticCurveTo(node.x + s, node.y + s, node.x + s - cr, node.y + s);
+      ctx.lineTo(node.x - s + cr, node.y + s);
+      ctx.quadraticCurveTo(node.x - s, node.y + s, node.x - s, node.y + s - cr);
+      ctx.lineTo(node.x - s, node.y - s + cr);
+      ctx.quadraticCurveTo(node.x - s, node.y - s, node.x - s + cr, node.y - s);
+      ctx.closePath();
+      ctx.fill();
     } else {
+      // Circle
       ctx.beginPath();
       ctx.arc(node.x, node.y, r, 0, Math.PI * 2);
       ctx.fill();
     }
 
-    // Active/hover ring
+    // Ring
     if (isActive || isHovered) {
       ctx.globalAlpha = 1;
-      ctx.strokeStyle = isActive ? "#fff" : "rgba(255,255,255,0.5)";
-      ctx.lineWidth = 2 / graphZoom;
+      ctx.strokeStyle = isActive ? "#fff" : "rgba(255,255,255,0.45)";
+      ctx.lineWidth = 1.5 / graphZoom;
       ctx.beginPath();
       ctx.arc(node.x, node.y, r + 3, 0, Math.PI * 2);
       ctx.stroke();
@@ -370,33 +430,34 @@ function drawGraph() {
 
     ctx.globalAlpha = 1;
 
-    // Label — scale font inversely so it stays readable when zoomed
-    const fontSize = Math.max(8, Math.min(12, 10 / Math.sqrt(graphZoom)));
-    ctx.fillStyle = node.status === "stub" ? "rgba(192,202,245,0.4)" : "rgba(192,202,245,0.9)";
-    ctx.font = `${fontSize}px -apple-system, sans-serif`;
-    ctx.textAlign = "center";
-    ctx.fillText(node.title, node.x, node.y + r + fontSize + 2);
+    // Label
+    if (!dimmed || isHovered) {
+      const fontSize = Math.max(8, Math.min(11, 10 / Math.sqrt(graphZoom)));
+      ctx.fillStyle = dimmed ? "rgba(164, 180, 212, 0.2)" :
+        node.status === "stub" ? "rgba(164, 180, 212, 0.35)" : "rgba(164, 180, 212, 0.85)";
+      ctx.font = `${isHovered ? 500 : 400} ${fontSize}px "Outfit", sans-serif`;
+      ctx.textAlign = "center";
+      ctx.fillText(node.title, node.x, node.y + r + fontSize + 3);
+    }
   }
 
   ctx.restore();
 
   // Zoom indicator
   if (graphZoom !== 1) {
-    ctx.fillStyle = "rgba(192,202,245,0.3)";
-    ctx.font = "11px -apple-system, sans-serif";
+    ctx.fillStyle = "rgba(164, 180, 212, 0.25)";
+    ctx.font = '11px "JetBrains Mono", monospace';
     ctx.textAlign = "right";
-    ctx.fillText(`${Math.round(graphZoom * 100)}%`, canvas.width - 12, canvas.height - 12);
+    ctx.fillText(`${Math.round(graphZoom * 100)}%`, canvas.width - 16, canvas.height - 16);
   }
 }
-
-let graphHovered = null;
 
 function getGraphNodeAt(screenX, screenY) {
   const { x, y } = screenToWorld(screenX, screenY);
   for (const node of graphNodes) {
     const dx = x - node.x;
     const dy = y - node.y;
-    const hitRadius = (node.radius + 4) / Math.min(graphZoom, 1); // easier to click when zoomed out
+    const hitRadius = (node.radius + 4) / Math.min(graphZoom, 1);
     if (dx * dx + dy * dy < hitRadius * hitRadius) return node;
   }
   return null;
@@ -419,7 +480,6 @@ async function loadFile(id) {
     renderMetadata();
     showPreview();
 
-    // Redraw graph to show active node
     if (currentView === "graph") drawGraph();
   } catch (err) {
     console.error("Failed to load file:", err);
@@ -436,21 +496,38 @@ function renderMetadata() {
   const fm = currentFile.frontmatter;
   let html = "";
 
-  html += `<span class="meta-badge domain" style="font-size:13px;font-weight:600">${escapeHtml(fm.title || currentFile.id)}</span>`;
-  if (fm.domain) html += `<span class="meta-badge domain">${escapeHtml(fm.domain)}</span>`;
-  html += `<span class="meta-badge status-${fm.status}">${fm.status}</span>`;
-  html += `<span class="meta-badge domain">${fm.type}</span>`;
+  // Title
+  html += `<span class="meta-title">${escapeHtml(fm.title || currentFile.id)}</span>`;
+  html += `<span class="meta-sep"></span>`;
 
+  // Domain badge with color
+  if (fm.domain) {
+    const color = DOMAIN_COLORS[fm.domain] || DOMAIN_COLORS.other;
+    html += `<span class="meta-badge domain" style="color:${color};border-color:${color}22;background:${color}15">${escapeHtml(fm.domain)}</span>`;
+  }
+
+  // Type badge
+  html += `<span class="meta-badge type-${fm.type}">${fm.type}</span>`;
+
+  // Status badge
+  html += `<span class="meta-badge status-${fm.status}">${fm.status}</span>`;
+
+  // Tags
   if (fm.tags && fm.tags.length) {
+    html += `<span class="meta-sep"></span>`;
     for (const tag of fm.tags) {
       const isActive = activeFilter === tag ? " active" : "";
       html += `<span class="meta-tag${isActive}" data-tag="${escapeHtml(tag)}">${escapeHtml(tag)}</span>`;
     }
   }
 
+  // Related links
   const links = [...(fm.related || []), ...(fm.illustratedBy || []), ...(fm.illustrates || [])];
-  for (const link of links) {
-    html += `<span class="meta-link" data-id="${escapeHtml(link)}">\u2192 ${escapeHtml(link)}</span>`;
+  if (links.length) {
+    html += `<span class="meta-sep"></span>`;
+    for (const link of links) {
+      html += `<span class="meta-link" data-id="${escapeHtml(link)}">\u2192 ${escapeHtml(link)}</span>`;
+    }
   }
 
   metadataEl.innerHTML = html;
@@ -498,13 +575,13 @@ async function saveFile() {
     }
   } catch (err) {
     console.error("Failed to save:", err);
-    alert("Ошибка сохранения");
+    alert("Save error");
   }
 }
 
 // Delete
 async function deleteFile() {
-  if (!confirm(`Удалить "${currentFile.frontmatter.title}"?`)) return;
+  if (!confirm(`Delete "${currentFile.frontmatter.title}"?`)) return;
   try {
     const res = await fetch(`/api/files/${encodeURIComponent(currentFile.id)}`, { method: "DELETE" });
     if (res.ok) {
@@ -517,7 +594,7 @@ async function deleteFile() {
     }
   } catch (err) {
     console.error("Failed to delete:", err);
-    alert("Ошибка удаления");
+    alert("Delete error");
   }
 }
 
@@ -527,16 +604,16 @@ async function createFile() {
   const title = $("#new-title").value.trim();
   const type = $("#new-type").value;
   const domain = $("#new-domain").value;
-  if (!id || !title) return alert("ID и название обязательны");
-  if (!/^[a-z0-9-]+$/.test(id)) return alert("ID: только строчные латинские буквы, цифры и дефисы");
+  if (!id || !title) return alert("ID and title required");
+  if (!/^[a-z0-9-]+$/.test(id)) return alert("ID: lowercase latin, digits, hyphens only");
 
   try {
     const res = await fetch("/api/files", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id, title, type, domain, status: "stub", tags: [], body: "> Эта тема ещё не описана.\n" }),
+      body: JSON.stringify({ id, title, type, domain, status: "stub", tags: [], body: "> \u042d\u0442\u0430 \u0442\u0435\u043c\u0430 \u0435\u0449\u0451 \u043d\u0435 \u043e\u043f\u0438\u0441\u0430\u043d\u0430.\n" }),
     });
-    if (res.status === 409) return alert("Файл с таким ID уже существует");
+    if (res.status === 409) return alert("File with this ID already exists");
     if (res.ok) {
       index = await res.json();
       renderStats();
@@ -546,12 +623,17 @@ async function createFile() {
     }
   } catch (err) {
     console.error("Failed to create:", err);
-    alert("Ошибка создания файла");
+    alert("Create error");
   }
 }
 
 // Modal
-function openModal() { modalOverlay.style.display = "flex"; $("#new-id").value = ""; $("#new-title").value = ""; $("#new-id").focus(); }
+function openModal() {
+  modalOverlay.style.display = "flex";
+  $("#new-id").value = "";
+  $("#new-title").value = "";
+  requestAnimationFrame(() => $("#new-id").focus());
+}
 function closeModal() { modalOverlay.style.display = "none"; }
 
 // ==================== FILTER ====================
@@ -576,17 +658,14 @@ function filterByTag(tag) {
   activeFilter = tag;
   const ids = index.tags[tag] || [];
 
-  // Filter tree
   $$(".tree-item").forEach((el) => {
     el.classList.toggle("hidden", !ids.includes(el.dataset.id));
   });
 
-  // Highlight active tag in metadata
   $$(".meta-tag").forEach((el) => {
     el.classList.toggle("active", el.dataset.tag === tag);
   });
 
-  // Highlight in tag panel
   tagPanelBody.querySelectorAll(".cloud-tag").forEach((el) => {
     el.classList.toggle("active", el.dataset.tag === tag);
   });
@@ -624,7 +703,7 @@ function bindEvents() {
     if (tag) filterByTag(tag.dataset.tag);
   });
 
-  // Graph: click node → switch to tree + open file
+  // Graph: click node -> switch to tree + open file
   let graphClickStart = null;
   graphCanvas.addEventListener("mousedown", (e) => {
     const rect = graphCanvas.getBoundingClientRect();
@@ -638,7 +717,6 @@ function bindEvents() {
       graphOffset.x = w.x - node.x;
       graphOffset.y = w.y - node.y;
     } else {
-      // Start panning
       graphPanning = true;
       graphPanStart = { x: e.clientX - graphPan.x, y: e.clientY - graphPan.y };
     }
@@ -660,7 +738,6 @@ function bindEvents() {
       graphPan.y = e.clientY - graphPanStart.y;
       drawGraph();
     } else {
-      // Hover detection
       const node = getGraphNodeAt(sx, sy);
       if (node !== graphHovered) {
         graphHovered = node;
@@ -671,12 +748,10 @@ function bindEvents() {
   });
 
   graphCanvas.addEventListener("mouseup", (e) => {
-    // Detect click (vs drag) — if mouse barely moved, it's a click
     if (graphClickStart && graphDragging) {
       const dx = e.clientX - graphClickStart.x;
       const dy = e.clientY - graphClickStart.y;
       if (dx * dx + dy * dy < 25) {
-        // It was a click on a node → go to tree
         const nodeId = graphDragging.id;
         graphDragging = null;
         graphPanning = false;
@@ -692,10 +767,13 @@ function bindEvents() {
   graphCanvas.addEventListener("mouseleave", () => {
     graphDragging = null;
     graphPanning = false;
-    graphHovered = null;
+    if (graphHovered) {
+      graphHovered = null;
+      drawGraph();
+    }
   });
 
-  // Graph zoom with mouse wheel
+  // Graph zoom
   graphCanvas.addEventListener("wheel", (e) => {
     e.preventDefault();
     const rect = graphCanvas.getBoundingClientRect();
@@ -705,7 +783,6 @@ function bindEvents() {
     const zoomFactor = e.deltaY < 0 ? 1.12 : 1 / 1.12;
     const newZoom = Math.max(0.15, Math.min(8, graphZoom * zoomFactor));
 
-    // Zoom toward mouse position
     graphPan.x = mx - ((mx - graphPan.x) / graphZoom) * newZoom;
     graphPan.y = my - ((my - graphPan.y) / graphZoom) * newZoom;
     graphZoom = newZoom;
