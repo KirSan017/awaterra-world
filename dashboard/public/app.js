@@ -1,3 +1,57 @@
+// Auth
+let authToken = sessionStorage.getItem("awaterra_token");
+
+async function api(url, opts = {}) {
+  const headers = { ...opts.headers };
+  if (authToken) headers["Authorization"] = `Bearer ${authToken}`;
+  const res = await fetch(url, { ...opts, headers });
+  if (res.status === 401) {
+    authToken = null;
+    sessionStorage.removeItem("awaterra_token");
+    showLogin();
+    throw new Error("auth");
+  }
+  return res;
+}
+
+function showLogin() {
+  document.querySelector("header").style.display = "none";
+  document.querySelector("main").style.display = "none";
+  $("#login-screen").style.display = "flex";
+}
+
+function hideLogin() {
+  $("#login-screen").style.display = "none";
+  document.querySelector("header").style.display = "";
+  document.querySelector("main").style.display = "";
+}
+
+async function doLogin() {
+  const username = $("#login-user").value.trim();
+  const password = $("#login-pass").value.trim();
+  const errEl = $("#login-error");
+  errEl.textContent = "";
+
+  try {
+    const res = await fetch("/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password }),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      errEl.textContent = data.error || "Login failed";
+      return;
+    }
+    authToken = data.token;
+    sessionStorage.setItem("awaterra_token", authToken);
+    hideLogin();
+    init();
+  } catch {
+    errEl.textContent = "Connection error";
+  }
+}
+
 // State
 let index = null;
 let currentFile = null;
@@ -58,7 +112,7 @@ const DOMAIN_LABELS = {
 // Boot
 async function init() {
   try {
-    const res = await fetch("/api/index");
+    const res = await api("/api/index");
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     index = await res.json();
     renderStats();
@@ -467,7 +521,7 @@ function getGraphNodeAt(screenX, screenY) {
 
 async function loadFile(id) {
   try {
-    const res = await fetch(`/api/files/${encodeURIComponent(id)}`);
+    const res = await api(`/api/files/${encodeURIComponent(id)}`);
     if (!res.ok) return;
     currentFile = await res.json();
     currentFile.id = id;
@@ -561,7 +615,7 @@ function showEditor() {
 async function saveFile() {
   const body = editorBody.value;
   try {
-    const res = await fetch(`/api/files/${encodeURIComponent(currentFile.id)}`, {
+    const res = await api(`/api/files/${encodeURIComponent(currentFile.id)}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ frontmatter: currentFile.frontmatter, body }),
@@ -583,7 +637,7 @@ async function saveFile() {
 async function deleteFile() {
   if (!confirm(`Delete "${currentFile.frontmatter.title}"?`)) return;
   try {
-    const res = await fetch(`/api/files/${encodeURIComponent(currentFile.id)}`, { method: "DELETE" });
+    const res = await api(`/api/files/${encodeURIComponent(currentFile.id)}`, { method: "DELETE" });
     if (res.ok) {
       index = await res.json();
       currentFile = null;
@@ -608,7 +662,7 @@ async function createFile() {
   if (!/^[a-z0-9-]+$/.test(id)) return alert("ID: lowercase latin, digits, hyphens only");
 
   try {
-    const res = await fetch("/api/files", {
+    const res = await api("/api/files", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id, title, type, domain, status: "stub", tags: [], body: "> \u042d\u0442\u0430 \u0442\u0435\u043c\u0430 \u0435\u0449\u0451 \u043d\u0435 \u043e\u043f\u0438\u0441\u0430\u043d\u0430.\n" }),
@@ -836,5 +890,24 @@ function bindEvents() {
   $("#new-title").addEventListener("keydown", (e) => { if (e.key === "Enter") createFile(); });
 }
 
-// Go
-init();
+// Boot — check auth first
+async function boot() {
+  // Try loading with existing token
+  try {
+    const res = await api("/api/index");
+    if (!res.ok) throw new Error("no auth");
+    // Token works — proceed
+    hideLogin();
+    init();
+  } catch {
+    // No valid token — show login
+    showLogin();
+  }
+}
+
+// Login form events
+$("#login-btn").addEventListener("click", doLogin);
+$("#login-pass").addEventListener("keydown", (e) => { if (e.key === "Enter") doLogin(); });
+$("#login-user").addEventListener("keydown", (e) => { if (e.key === "Enter") $("#login-pass").focus(); });
+
+boot();
