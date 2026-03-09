@@ -47,15 +47,16 @@ interface WorldIndex {
 // --- Config ---
 
 const ROOT = path.resolve(__dirname, "..");
+const CONTENT_ROOT = process.env.CONTENT_DIR || ROOT;
 const DIRS = ["concepts", "scenes", "meta"];
-const OUTPUT = path.join(ROOT, "index.json");
+const OUTPUT = path.join(CONTENT_ROOT, "index.json");
 
 // --- Helpers ---
 
 function collectMdFiles(): string[] {
   const files: string[] = [];
   for (const dir of DIRS) {
-    const dirPath = path.join(ROOT, dir);
+    const dirPath = path.join(CONTENT_ROOT, dir);
     if (!fs.existsSync(dirPath)) continue;
     for (const file of fs.readdirSync(dirPath)) {
       if (file.endsWith(".md")) {

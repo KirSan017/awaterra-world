@@ -7,11 +7,12 @@ import matter from "gray-matter";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
+const CONTENT_ROOT = process.env.CONTENT_DIR || ROOT;
 
 function findFile(id: string): string | null {
   const dirs = ["concepts", "scenes", "meta"];
   for (const dir of dirs) {
-    const filePath = path.join(ROOT, dir, `${id}.md`);
+    const filePath = path.join(CONTENT_ROOT, dir, `${id}.md`);
     if (existsSync(filePath)) return filePath;
   }
   return null;
@@ -21,11 +22,12 @@ function rebuildIndex(): void {
   execSync("npx tsx scripts/build-index.ts", {
     cwd: ROOT,
     stdio: "pipe",
+    env: { ...process.env, CONTENT_DIR: CONTENT_ROOT },
   });
 }
 
 function readIndex(): unknown {
-  const raw = readFileSync(path.join(ROOT, "index.json"), "utf-8");
+  const raw = readFileSync(path.join(CONTENT_ROOT, "index.json"), "utf-8");
   return JSON.parse(raw);
 }
 
@@ -105,7 +107,7 @@ apiRouter.post("/files", (req: Request, res: Response) => {
       res.status(400).json({ error: `Unknown type: ${type}` });
       return;
     }
-    const filePath = path.join(ROOT, dir, `${id}.md`);
+    const filePath = path.join(CONTENT_ROOT, dir, `${id}.md`);
     if (existsSync(filePath)) {
       res.status(409).json({ error: "File already exists" });
       return;
