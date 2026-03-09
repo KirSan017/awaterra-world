@@ -976,6 +976,11 @@ aside {
   padding-right: 32px;
 }
 
+#modal select option {
+  background: #141830;
+  color: var(--text-bright);
+}
+
 .modal-actions {
   display: flex;
   gap: 8px;
