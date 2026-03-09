@@ -1,0 +1,1512 @@
+{
+  "nodes": [
+    {
+      "id": "apartment",
+      "title": "Квартира",
+      "type": "concept",
+      "domain": "daily-life",
+      "status": "complete",
+      "tags": [
+        "квартира",
+        "умный дом",
+        "биополимер",
+        "мембрана",
+        "капсула тишины"
+      ],
+      "wordCount": 290
+    },
+    {
+      "id": "art",
+      "title": "Искусство",
+      "type": "concept",
+      "domain": "culture",
+      "status": "stub",
+      "tags": [
+        "искусство"
+      ],
+      "wordCount": 6
+    },
+    {
+      "id": "awaband",
+      "title": "AWABAND — браслет",
+      "type": "concept",
+      "domain": "technology",
+      "status": "complete",
+      "tags": [
+        "браслет",
+        "поле",
+        "свечение",
+        "динь",
+        "светимость"
+      ],
+      "wordCount": 616
+    },
+    {
+      "id": "bar-drinks",
+      "title": "Бар. Меню напитков",
+      "type": "concept",
+      "domain": "daily-life",
+      "status": "complete",
+      "tags": [
+        "бар",
+        "напитки",
+        "амбра",
+        "дымка",
+        "солар",
+        "линза",
+        "тишина",
+        "мост"
+      ],
+      "wordCount": 805
+    },
+    {
+      "id": "bar",
+      "title": "Бар",
+      "type": "concept",
+      "domain": "daily-life",
+      "status": "complete",
+      "tags": [
+        "бар",
+        "бармен",
+        "напитки",
+        "вечер"
+      ],
+      "wordCount": 217
+    },
+    {
+      "id": "cafe-menu",
+      "title": "Меню в кафе",
+      "type": "concept",
+      "domain": "daily-life",
+      "status": "complete",
+      "tags": [
+        "кафе",
+        "меню",
+        "еда",
+        "напитки",
+        "параметры"
+      ],
+      "wordCount": 320
+    },
+    {
+      "id": "children-and-growing-up",
+      "title": "Дети и взросление",
+      "type": "concept",
+      "domain": "society",
+      "status": "stub",
+      "tags": [
+        "дети и взросление"
+      ],
+      "wordCount": 6
+    },
+    {
+      "id": "clothing",
+      "title": "Одежда",
+      "type": "concept",
+      "domain": "daily-life",
+      "status": "stub",
+      "tags": [
+        "одежда"
+      ],
+      "wordCount": 6
+    },
+    {
+      "id": "communication",
+      "title": "Средства связи",
+      "type": "concept",
+      "domain": "technology",
+      "status": "stub",
+      "tags": [
+        "средства связи"
+      ],
+      "wordCount": 6
+    },
+    {
+      "id": "companion-privacy",
+      "title": "Приватность спутника",
+      "type": "concept",
+      "domain": "society",
+      "status": "complete",
+      "tags": [
+        "спутник",
+        "приватность",
+        "открытость",
+        "этикет",
+        "доверие"
+      ],
+      "wordCount": 506
+    },
+    {
+      "id": "death-and-aging",
+      "title": "Старение и смерть",
+      "type": "concept",
+      "domain": "society",
+      "status": "stub",
+      "tags": [
+        "старение и смерть"
+      ],
+      "wordCount": 6
+    },
+    {
+      "id": "economy",
+      "title": "Экономика",
+      "type": "concept",
+      "domain": "society",
+      "status": "stub",
+      "tags": [
+        "экономика"
+      ],
+      "wordCount": 6
+    },
+    {
+      "id": "education",
+      "title": "Образование",
+      "type": "concept",
+      "domain": "society",
+      "status": "stub",
+      "tags": [
+        "образование"
+      ],
+      "wordCount": 6
+    },
+    {
+      "id": "family",
+      "title": "Семья",
+      "type": "concept",
+      "domain": "society",
+      "status": "stub",
+      "tags": [
+        "семья"
+      ],
+      "wordCount": 6
+    },
+    {
+      "id": "forbidden-substances",
+      "title": "Запрещённые вещества",
+      "type": "concept",
+      "domain": "substances",
+      "status": "complete",
+      "tags": [
+        "запрещёнка",
+        "вспышка",
+        "стена",
+        "зеркало",
+        "петля",
+        "поле",
+        "повреждение"
+      ],
+      "wordCount": 1900
+    },
+    {
+      "id": "fridge",
+      "title": "Холодильник",
+      "type": "concept",
+      "domain": "daily-life",
+      "status": "complete",
+      "tags": [
+        "холодильник",
+        "мембрана",
+        "молекулярный резонанс",
+        "капсулы",
+        "хранение"
+      ],
+      "wordCount": 268
+    },
+    {
+      "id": "governance",
+      "title": "Управление обществом",
+      "type": "concept",
+      "domain": "society",
+      "status": "stub",
+      "tags": [
+        "управление обществом"
+      ],
+      "wordCount": 6
+    },
+    {
+      "id": "history-how-we-got-here",
+      "title": "Как мы пришли к этому",
+      "type": "concept",
+      "domain": "society",
+      "status": "stub",
+      "tags": [
+        "как мы пришли к этому"
+      ],
+      "wordCount": 6
+    },
+    {
+      "id": "kitchen",
+      "title": "Кухня",
+      "type": "concept",
+      "domain": "daily-life",
+      "status": "complete",
+      "tags": [
+        "кухня",
+        "волновая панель",
+        "диспергатор",
+        "водяной блок"
+      ],
+      "wordCount": 309
+    },
+    {
+      "id": "medicine",
+      "title": "Медицина",
+      "type": "concept",
+      "domain": "technology",
+      "status": "stub",
+      "tags": [
+        "медицина"
+      ],
+      "wordCount": 6
+    },
+    {
+      "id": "music-and-dance",
+      "title": "Музыка и танцы",
+      "type": "concept",
+      "domain": "culture",
+      "status": "complete",
+      "tags": [
+        "музыка",
+        "танцы",
+        "инструменты",
+        "вечер",
+        "концерт"
+      ],
+      "wordCount": 225
+    },
+    {
+      "id": "nature-as-tool",
+      "title": "Природа как инструмент",
+      "type": "concept",
+      "domain": "nature",
+      "status": "complete",
+      "tags": [
+        "природа",
+        "земля",
+        "вода",
+        "огонь",
+        "сад",
+        "акустика",
+        "небо"
+      ],
+      "wordCount": 595
+    },
+    {
+      "id": "neuro-companion",
+      "title": "Нейро-спутник",
+      "type": "concept",
+      "domain": "technology",
+      "status": "complete",
+      "tags": [
+        "спутник",
+        "инсайдер",
+        "сфера",
+        "зеркало",
+        "поле"
+      ],
+      "wordCount": 950
+    },
+    {
+      "id": "robots",
+      "title": "Роботы в 2225 году",
+      "type": "concept",
+      "domain": "technology",
+      "status": "complete",
+      "tags": [
+        "роботы",
+        "утилитарность",
+        "невидимость",
+        "клинеры",
+        "дроны"
+      ],
+      "wordCount": 307
+    },
+    {
+      "id": "sport",
+      "title": "Спорт",
+      "type": "concept",
+      "domain": "society",
+      "status": "complete",
+      "tags": [
+        "спорт",
+        "площадка",
+        "бег",
+        "игра",
+        "поле"
+      ],
+      "wordCount": 314
+    },
+    {
+      "id": "studio-aquaflow",
+      "title": "Студия AquaFlow — Поток",
+      "type": "concept",
+      "domain": "culture",
+      "status": "complete",
+      "tags": [
+        "студия",
+        "поток",
+        "оранжевый",
+        "aquaflow",
+        "вода"
+      ],
+      "wordCount": 186
+    },
+    {
+      "id": "studio-heartopen",
+      "title": "Студия HeartOpen — Резонанс",
+      "type": "concept",
+      "domain": "culture",
+      "status": "complete",
+      "tags": [
+        "студия",
+        "резонанс",
+        "зелёный",
+        "heartopen",
+        "сердце"
+      ],
+      "wordCount": 187
+    },
+    {
+      "id": "studio-remaining",
+      "title": "Студии SoundBirth, SilencePod, UnityDome",
+      "type": "concept",
+      "domain": "culture",
+      "status": "complete",
+      "tags": [
+        "студия",
+        "вибрация",
+        "ясность",
+        "целостность",
+        "голубой",
+        "индиго",
+        "фиолетовый"
+      ],
+      "wordCount": 595
+    },
+    {
+      "id": "studio-solarchargepod",
+      "title": "Студия SolarCharge — Энергия",
+      "type": "concept",
+      "domain": "culture",
+      "status": "complete",
+      "tags": [
+        "студия",
+        "энергия",
+        "жёлтый",
+        "solarchargepod",
+        "свет"
+      ],
+      "wordCount": 158
+    },
+    {
+      "id": "studio-terrapod",
+      "title": "Студия TerraPod — Стабильность",
+      "type": "concept",
+      "domain": "culture",
+      "status": "complete",
+      "tags": [
+        "студия",
+        "стабильность",
+        "красный",
+        "terrapod",
+        "заземление"
+      ],
+      "wordCount": 179
+    },
+    {
+      "id": "studios-overview",
+      "title": "Студии балансировки — обзор",
+      "type": "concept",
+      "domain": "culture",
+      "status": "complete",
+      "tags": [
+        "студии",
+        "балансировка",
+        "параметры",
+        "город"
+      ],
+      "wordCount": 101
+    },
+    {
+      "id": "transport",
+      "title": "Транспорт",
+      "type": "concept",
+      "domain": "technology",
+      "status": "complete",
+      "tags": [
+        "транспорт",
+        "антиграв",
+        "платформа",
+        "резонанс"
+      ],
+      "wordCount": 183
+    },
+    {
+      "id": "who-doesnt-wear",
+      "title": "Кто не носит браслет",
+      "type": "concept",
+      "domain": "society",
+      "status": "complete",
+      "tags": [
+        "браслет",
+        "отказ",
+        "общество",
+        "приватность"
+      ],
+      "wordCount": 439
+    },
+    {
+      "id": "work-and-professions",
+      "title": "Работа и профессии",
+      "type": "concept",
+      "domain": "society",
+      "status": "stub",
+      "tags": [
+        "работа и профессии"
+      ],
+      "wordCount": 6
+    },
+    {
+      "id": "bar-evening",
+      "title": "Вечер в баре",
+      "type": "scene",
+      "domain": "daily-life",
+      "status": "complete",
+      "tags": [
+        "бар",
+        "вечер",
+        "напитки",
+        "люди"
+      ],
+      "wordCount": 149
+    },
+    {
+      "id": "evening-concert",
+      "title": "Вечерний концерт и танцы",
+      "type": "scene",
+      "domain": "daily-life",
+      "status": "complete",
+      "tags": [
+        "вечер",
+        "музыка",
+        "танцы",
+        "браслет",
+        "светлячки"
+      ],
+      "wordCount": 225
+    },
+    {
+      "id": "guy-checks-companion",
+      "title": "Парень проверяет спутника",
+      "type": "scene",
+      "domain": "daily-life",
+      "status": "complete",
+      "tags": [
+        "повседневность",
+        "спутник",
+        "браслет"
+      ],
+      "wordCount": 167
+    },
+    {
+      "id": "lina-sunday-morning",
+      "title": "Лина. Воскресное утро",
+      "type": "scene",
+      "domain": "daily-life",
+      "status": "complete",
+      "tags": [
+        "повседневность",
+        "кафе",
+        "спутник",
+        "лина"
+      ],
+      "wordCount": 615
+    },
+    {
+      "id": "sunday-square",
+      "title": "Воскресенье на площади",
+      "type": "scene",
+      "domain": "daily-life",
+      "status": "complete",
+      "tags": [
+        "повседневность",
+        "площадь",
+        "наблюдение",
+        "заземление"
+      ],
+      "wordCount": 888
+    },
+    {
+      "id": "woman-comes-home",
+      "title": "Женщина приходит домой",
+      "type": "scene",
+      "domain": "daily-life",
+      "status": "complete",
+      "tags": [
+        "повседневность",
+        "квартира",
+        "умный дом",
+        "кот"
+      ],
+      "wordCount": 867
+    },
+    {
+      "id": "ecology-of-consciousness",
+      "title": "Экология сознания",
+      "type": "meta",
+      "domain": "society",
+      "status": "draft",
+      "tags": [
+        "экология сознания",
+        "наука",
+        "поле"
+      ],
+      "wordCount": 164
+    },
+    {
+      "id": "glossary",
+      "title": "Глоссарий",
+      "type": "meta",
+      "domain": "technology",
+      "status": "complete",
+      "tags": [
+        "глоссарий",
+        "термины"
+      ],
+      "wordCount": 513
+    },
+    {
+      "id": "seven-parameters",
+      "title": "Семь параметров биополя",
+      "type": "meta",
+      "domain": "technology",
+      "status": "complete",
+      "tags": [
+        "параметры",
+        "поле",
+        "частоты",
+        "цвета"
+      ],
+      "wordCount": 273
+    }
+  ],
+  "edges": [
+    {
+      "from": "apartment",
+      "to": "awaband",
+      "type": "related"
+    },
+    {
+      "from": "apartment",
+      "to": "kitchen",
+      "type": "related"
+    },
+    {
+      "from": "apartment",
+      "to": "fridge",
+      "type": "related"
+    },
+    {
+      "from": "apartment",
+      "to": "robots",
+      "type": "related"
+    },
+    {
+      "from": "apartment",
+      "to": "woman-comes-home",
+      "type": "illustratedBy"
+    },
+    {
+      "from": "awaband",
+      "to": "neuro-companion",
+      "type": "related"
+    },
+    {
+      "from": "awaband",
+      "to": "seven-parameters",
+      "type": "related"
+    },
+    {
+      "from": "awaband",
+      "to": "sunday-square",
+      "type": "illustratedBy"
+    },
+    {
+      "from": "awaband",
+      "to": "lina-sunday-morning",
+      "type": "illustratedBy"
+    },
+    {
+      "from": "awaband",
+      "to": "guy-checks-companion",
+      "type": "illustratedBy"
+    },
+    {
+      "from": "bar-drinks",
+      "to": "bar",
+      "type": "related"
+    },
+    {
+      "from": "bar-drinks",
+      "to": "forbidden-substances",
+      "type": "related"
+    },
+    {
+      "from": "bar",
+      "to": "bar-drinks",
+      "type": "related"
+    },
+    {
+      "from": "bar",
+      "to": "forbidden-substances",
+      "type": "related"
+    },
+    {
+      "from": "bar",
+      "to": "bar-evening",
+      "type": "illustratedBy"
+    },
+    {
+      "from": "cafe-menu",
+      "to": "awaband",
+      "type": "related"
+    },
+    {
+      "from": "cafe-menu",
+      "to": "neuro-companion",
+      "type": "related"
+    },
+    {
+      "from": "cafe-menu",
+      "to": "seven-parameters",
+      "type": "related"
+    },
+    {
+      "from": "cafe-menu",
+      "to": "lina-sunday-morning",
+      "type": "illustratedBy"
+    },
+    {
+      "from": "companion-privacy",
+      "to": "neuro-companion",
+      "type": "related"
+    },
+    {
+      "from": "companion-privacy",
+      "to": "awaband",
+      "type": "related"
+    },
+    {
+      "from": "forbidden-substances",
+      "to": "awaband",
+      "type": "related"
+    },
+    {
+      "from": "forbidden-substances",
+      "to": "neuro-companion",
+      "type": "related"
+    },
+    {
+      "from": "forbidden-substances",
+      "to": "seven-parameters",
+      "type": "related"
+    },
+    {
+      "from": "forbidden-substances",
+      "to": "bar",
+      "type": "related"
+    },
+    {
+      "from": "fridge",
+      "to": "apartment",
+      "type": "related"
+    },
+    {
+      "from": "fridge",
+      "to": "kitchen",
+      "type": "related"
+    },
+    {
+      "from": "fridge",
+      "to": "woman-comes-home",
+      "type": "illustratedBy"
+    },
+    {
+      "from": "kitchen",
+      "to": "apartment",
+      "type": "related"
+    },
+    {
+      "from": "kitchen",
+      "to": "fridge",
+      "type": "related"
+    },
+    {
+      "from": "kitchen",
+      "to": "awaband",
+      "type": "related"
+    },
+    {
+      "from": "kitchen",
+      "to": "woman-comes-home",
+      "type": "illustratedBy"
+    },
+    {
+      "from": "music-and-dance",
+      "to": "awaband",
+      "type": "related"
+    },
+    {
+      "from": "music-and-dance",
+      "to": "evening-concert",
+      "type": "illustratedBy"
+    },
+    {
+      "from": "nature-as-tool",
+      "to": "seven-parameters",
+      "type": "related"
+    },
+    {
+      "from": "nature-as-tool",
+      "to": "studios-overview",
+      "type": "related"
+    },
+    {
+      "from": "neuro-companion",
+      "to": "awaband",
+      "type": "related"
+    },
+    {
+      "from": "neuro-companion",
+      "to": "companion-privacy",
+      "type": "related"
+    },
+    {
+      "from": "neuro-companion",
+      "to": "seven-parameters",
+      "type": "related"
+    },
+    {
+      "from": "neuro-companion",
+      "to": "lina-sunday-morning",
+      "type": "illustratedBy"
+    },
+    {
+      "from": "neuro-companion",
+      "to": "guy-checks-companion",
+      "type": "illustratedBy"
+    },
+    {
+      "from": "neuro-companion",
+      "to": "sunday-square",
+      "type": "illustratedBy"
+    },
+    {
+      "from": "robots",
+      "to": "apartment",
+      "type": "related"
+    },
+    {
+      "from": "robots",
+      "to": "awaband",
+      "type": "related"
+    },
+    {
+      "from": "sport",
+      "to": "awaband",
+      "type": "related"
+    },
+    {
+      "from": "studio-aquaflow",
+      "to": "seven-parameters",
+      "type": "related"
+    },
+    {
+      "from": "studio-aquaflow",
+      "to": "studios-overview",
+      "type": "related"
+    },
+    {
+      "from": "studio-heartopen",
+      "to": "seven-parameters",
+      "type": "related"
+    },
+    {
+      "from": "studio-heartopen",
+      "to": "studios-overview",
+      "type": "related"
+    },
+    {
+      "from": "studio-remaining",
+      "to": "seven-parameters",
+      "type": "related"
+    },
+    {
+      "from": "studio-remaining",
+      "to": "studios-overview",
+      "type": "related"
+    },
+    {
+      "from": "studio-solarchargepod",
+      "to": "seven-parameters",
+      "type": "related"
+    },
+    {
+      "from": "studio-solarchargepod",
+      "to": "studios-overview",
+      "type": "related"
+    },
+    {
+      "from": "studio-terrapod",
+      "to": "seven-parameters",
+      "type": "related"
+    },
+    {
+      "from": "studio-terrapod",
+      "to": "studios-overview",
+      "type": "related"
+    },
+    {
+      "from": "studios-overview",
+      "to": "seven-parameters",
+      "type": "related"
+    },
+    {
+      "from": "studios-overview",
+      "to": "studio-terrapod",
+      "type": "related"
+    },
+    {
+      "from": "studios-overview",
+      "to": "studio-aquaflow",
+      "type": "related"
+    },
+    {
+      "from": "studios-overview",
+      "to": "studio-solarchargepod",
+      "type": "related"
+    },
+    {
+      "from": "studios-overview",
+      "to": "studio-heartopen",
+      "type": "related"
+    },
+    {
+      "from": "studios-overview",
+      "to": "studio-remaining",
+      "type": "related"
+    },
+    {
+      "from": "transport",
+      "to": "awaband",
+      "type": "related"
+    },
+    {
+      "from": "who-doesnt-wear",
+      "to": "awaband",
+      "type": "related"
+    },
+    {
+      "from": "bar-evening",
+      "to": "bar",
+      "type": "illustrates"
+    },
+    {
+      "from": "bar-evening",
+      "to": "bar-drinks",
+      "type": "illustrates"
+    },
+    {
+      "from": "bar-evening",
+      "to": "awaband",
+      "type": "illustrates"
+    },
+    {
+      "from": "evening-concert",
+      "to": "music-and-dance",
+      "type": "illustrates"
+    },
+    {
+      "from": "evening-concert",
+      "to": "awaband",
+      "type": "illustrates"
+    },
+    {
+      "from": "guy-checks-companion",
+      "to": "awaband",
+      "type": "illustrates"
+    },
+    {
+      "from": "guy-checks-companion",
+      "to": "neuro-companion",
+      "type": "illustrates"
+    },
+    {
+      "from": "lina-sunday-morning",
+      "to": "awaband",
+      "type": "illustrates"
+    },
+    {
+      "from": "lina-sunday-morning",
+      "to": "neuro-companion",
+      "type": "illustrates"
+    },
+    {
+      "from": "lina-sunday-morning",
+      "to": "cafe-menu",
+      "type": "illustrates"
+    },
+    {
+      "from": "sunday-square",
+      "to": "awaband",
+      "type": "illustrates"
+    },
+    {
+      "from": "sunday-square",
+      "to": "neuro-companion",
+      "type": "illustrates"
+    },
+    {
+      "from": "sunday-square",
+      "to": "seven-parameters",
+      "type": "illustrates"
+    },
+    {
+      "from": "woman-comes-home",
+      "to": "apartment",
+      "type": "illustrates"
+    },
+    {
+      "from": "woman-comes-home",
+      "to": "kitchen",
+      "type": "illustrates"
+    },
+    {
+      "from": "woman-comes-home",
+      "to": "fridge",
+      "type": "illustrates"
+    },
+    {
+      "from": "woman-comes-home",
+      "to": "awaband",
+      "type": "illustrates"
+    },
+    {
+      "from": "ecology-of-consciousness",
+      "to": "seven-parameters",
+      "type": "related"
+    },
+    {
+      "from": "ecology-of-consciousness",
+      "to": "awaband",
+      "type": "related"
+    },
+    {
+      "from": "ecology-of-consciousness",
+      "to": "neuro-companion",
+      "type": "related"
+    },
+    {
+      "from": "glossary",
+      "to": "seven-parameters",
+      "type": "related"
+    },
+    {
+      "from": "glossary",
+      "to": "awaband",
+      "type": "related"
+    },
+    {
+      "from": "glossary",
+      "to": "neuro-companion",
+      "type": "related"
+    },
+    {
+      "from": "seven-parameters",
+      "to": "awaband",
+      "type": "related"
+    },
+    {
+      "from": "seven-parameters",
+      "to": "neuro-companion",
+      "type": "related"
+    },
+    {
+      "from": "seven-parameters",
+      "to": "studios-overview",
+      "type": "related"
+    },
+    {
+      "from": "seven-parameters",
+      "to": "studio-terrapod",
+      "type": "related"
+    },
+    {
+      "from": "seven-parameters",
+      "to": "studio-aquaflow",
+      "type": "related"
+    },
+    {
+      "from": "seven-parameters",
+      "to": "studio-solarchargepod",
+      "type": "related"
+    },
+    {
+      "from": "seven-parameters",
+      "to": "studio-heartopen",
+      "type": "related"
+    },
+    {
+      "from": "seven-parameters",
+      "to": "studio-remaining",
+      "type": "related"
+    }
+  ],
+  "tags": {
+    "квартира": [
+      "apartment",
+      "woman-comes-home"
+    ],
+    "умный дом": [
+      "apartment",
+      "woman-comes-home"
+    ],
+    "биополимер": [
+      "apartment"
+    ],
+    "мембрана": [
+      "apartment",
+      "fridge"
+    ],
+    "капсула тишины": [
+      "apartment"
+    ],
+    "искусство": [
+      "art"
+    ],
+    "браслет": [
+      "awaband",
+      "who-doesnt-wear",
+      "evening-concert",
+      "guy-checks-companion"
+    ],
+    "поле": [
+      "awaband",
+      "forbidden-substances",
+      "neuro-companion",
+      "sport",
+      "ecology-of-consciousness",
+      "seven-parameters"
+    ],
+    "свечение": [
+      "awaband"
+    ],
+    "динь": [
+      "awaband"
+    ],
+    "светимость": [
+      "awaband"
+    ],
+    "бар": [
+      "bar-drinks",
+      "bar",
+      "bar-evening"
+    ],
+    "напитки": [
+      "bar-drinks",
+      "bar",
+      "cafe-menu",
+      "bar-evening"
+    ],
+    "амбра": [
+      "bar-drinks"
+    ],
+    "дымка": [
+      "bar-drinks"
+    ],
+    "солар": [
+      "bar-drinks"
+    ],
+    "линза": [
+      "bar-drinks"
+    ],
+    "тишина": [
+      "bar-drinks"
+    ],
+    "мост": [
+      "bar-drinks"
+    ],
+    "бармен": [
+      "bar"
+    ],
+    "вечер": [
+      "bar",
+      "music-and-dance",
+      "bar-evening",
+      "evening-concert"
+    ],
+    "кафе": [
+      "cafe-menu",
+      "lina-sunday-morning"
+    ],
+    "меню": [
+      "cafe-menu"
+    ],
+    "еда": [
+      "cafe-menu"
+    ],
+    "параметры": [
+      "cafe-menu",
+      "studios-overview",
+      "seven-parameters"
+    ],
+    "дети и взросление": [
+      "children-and-growing-up"
+    ],
+    "одежда": [
+      "clothing"
+    ],
+    "средства связи": [
+      "communication"
+    ],
+    "спутник": [
+      "companion-privacy",
+      "neuro-companion",
+      "guy-checks-companion",
+      "lina-sunday-morning"
+    ],
+    "приватность": [
+      "companion-privacy",
+      "who-doesnt-wear"
+    ],
+    "открытость": [
+      "companion-privacy"
+    ],
+    "этикет": [
+      "companion-privacy"
+    ],
+    "доверие": [
+      "companion-privacy"
+    ],
+    "старение и смерть": [
+      "death-and-aging"
+    ],
+    "экономика": [
+      "economy"
+    ],
+    "образование": [
+      "education"
+    ],
+    "семья": [
+      "family"
+    ],
+    "запрещёнка": [
+      "forbidden-substances"
+    ],
+    "вспышка": [
+      "forbidden-substances"
+    ],
+    "стена": [
+      "forbidden-substances"
+    ],
+    "зеркало": [
+      "forbidden-substances",
+      "neuro-companion"
+    ],
+    "петля": [
+      "forbidden-substances"
+    ],
+    "повреждение": [
+      "forbidden-substances"
+    ],
+    "холодильник": [
+      "fridge"
+    ],
+    "молекулярный резонанс": [
+      "fridge"
+    ],
+    "капсулы": [
+      "fridge"
+    ],
+    "хранение": [
+      "fridge"
+    ],
+    "управление обществом": [
+      "governance"
+    ],
+    "как мы пришли к этому": [
+      "history-how-we-got-here"
+    ],
+    "кухня": [
+      "kitchen"
+    ],
+    "волновая панель": [
+      "kitchen"
+    ],
+    "диспергатор": [
+      "kitchen"
+    ],
+    "водяной блок": [
+      "kitchen"
+    ],
+    "медицина": [
+      "medicine"
+    ],
+    "музыка": [
+      "music-and-dance",
+      "evening-concert"
+    ],
+    "танцы": [
+      "music-and-dance",
+      "evening-concert"
+    ],
+    "инструменты": [
+      "music-and-dance"
+    ],
+    "концерт": [
+      "music-and-dance"
+    ],
+    "природа": [
+      "nature-as-tool"
+    ],
+    "земля": [
+      "nature-as-tool"
+    ],
+    "вода": [
+      "nature-as-tool",
+      "studio-aquaflow"
+    ],
+    "огонь": [
+      "nature-as-tool"
+    ],
+    "сад": [
+      "nature-as-tool"
+    ],
+    "акустика": [
+      "nature-as-tool"
+    ],
+    "небо": [
+      "nature-as-tool"
+    ],
+    "инсайдер": [
+      "neuro-companion"
+    ],
+    "сфера": [
+      "neuro-companion"
+    ],
+    "роботы": [
+      "robots"
+    ],
+    "утилитарность": [
+      "robots"
+    ],
+    "невидимость": [
+      "robots"
+    ],
+    "клинеры": [
+      "robots"
+    ],
+    "дроны": [
+      "robots"
+    ],
+    "спорт": [
+      "sport"
+    ],
+    "площадка": [
+      "sport"
+    ],
+    "бег": [
+      "sport"
+    ],
+    "игра": [
+      "sport"
+    ],
+    "студия": [
+      "studio-aquaflow",
+      "studio-heartopen",
+      "studio-remaining",
+      "studio-solarchargepod",
+      "studio-terrapod"
+    ],
+    "поток": [
+      "studio-aquaflow"
+    ],
+    "оранжевый": [
+      "studio-aquaflow"
+    ],
+    "aquaflow": [
+      "studio-aquaflow"
+    ],
+    "резонанс": [
+      "studio-heartopen",
+      "transport"
+    ],
+    "зелёный": [
+      "studio-heartopen"
+    ],
+    "heartopen": [
+      "studio-heartopen"
+    ],
+    "сердце": [
+      "studio-heartopen"
+    ],
+    "вибрация": [
+      "studio-remaining"
+    ],
+    "ясность": [
+      "studio-remaining"
+    ],
+    "целостность": [
+      "studio-remaining"
+    ],
+    "голубой": [
+      "studio-remaining"
+    ],
+    "индиго": [
+      "studio-remaining"
+    ],
+    "фиолетовый": [
+      "studio-remaining"
+    ],
+    "энергия": [
+      "studio-solarchargepod"
+    ],
+    "жёлтый": [
+      "studio-solarchargepod"
+    ],
+    "solarchargepod": [
+      "studio-solarchargepod"
+    ],
+    "свет": [
+      "studio-solarchargepod"
+    ],
+    "стабильность": [
+      "studio-terrapod"
+    ],
+    "красный": [
+      "studio-terrapod"
+    ],
+    "terrapod": [
+      "studio-terrapod"
+    ],
+    "заземление": [
+      "studio-terrapod",
+      "sunday-square"
+    ],
+    "студии": [
+      "studios-overview"
+    ],
+    "балансировка": [
+      "studios-overview"
+    ],
+    "город": [
+      "studios-overview"
+    ],
+    "транспорт": [
+      "transport"
+    ],
+    "антиграв": [
+      "transport"
+    ],
+    "платформа": [
+      "transport"
+    ],
+    "отказ": [
+      "who-doesnt-wear"
+    ],
+    "общество": [
+      "who-doesnt-wear"
+    ],
+    "работа и профессии": [
+      "work-and-professions"
+    ],
+    "люди": [
+      "bar-evening"
+    ],
+    "светлячки": [
+      "evening-concert"
+    ],
+    "повседневность": [
+      "guy-checks-companion",
+      "lina-sunday-morning",
+      "sunday-square",
+      "woman-comes-home"
+    ],
+    "лина": [
+      "lina-sunday-morning"
+    ],
+    "площадь": [
+      "sunday-square"
+    ],
+    "наблюдение": [
+      "sunday-square"
+    ],
+    "кот": [
+      "woman-comes-home"
+    ],
+    "экология сознания": [
+      "ecology-of-consciousness"
+    ],
+    "наука": [
+      "ecology-of-consciousness"
+    ],
+    "глоссарий": [
+      "glossary"
+    ],
+    "термины": [
+      "glossary"
+    ],
+    "частоты": [
+      "seven-parameters"
+    ],
+    "цвета": [
+      "seven-parameters"
+    ]
+  },
+  "domains": {
+    "daily-life": {
+      "total": 13,
+      "complete": 12,
+      "draft": 0,
+      "stub": 1
+    },
+    "culture": {
+      "total": 8,
+      "complete": 7,
+      "draft": 0,
+      "stub": 1
+    },
+    "technology": {
+      "total": 8,
+      "complete": 6,
+      "draft": 0,
+      "stub": 2
+    },
+    "society": {
+      "total": 12,
+      "complete": 3,
+      "draft": 1,
+      "stub": 8
+    },
+    "substances": {
+      "total": 1,
+      "complete": 1,
+      "draft": 0,
+      "stub": 0
+    },
+    "nature": {
+      "total": 1,
+      "complete": 1,
+      "draft": 0,
+      "stub": 0
+    }
+  },
+  "stats": {
+    "totalFiles": 43,
+    "totalWords": 13583,
+    "complete": 30,
+    "draft": 1,
+    "stub": 12
+  },
+  "generatedAt": "2026-03-09T20:04:10.933Z"
+}
