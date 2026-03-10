@@ -233,8 +233,8 @@ async function startScanning() {
     frameCount++;
 
     // Detect face position every ~10 frames for aura tracking
-    if (frameCount % 10 === 0) {
-      auraRenderer.detectFace(video);
+    if (frameCount % 10 === 0 && video.readyState >= 2) {
+      auraRenderer.detectFaceFromCanvas(offCtx, offscreen.width, offscreen.height);
     }
 
     // Every ~15 frames (~500ms at 30fps): calculate vitals and update visuals

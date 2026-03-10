@@ -19,44 +19,53 @@ export class AuraRenderer {
     this.faceX = 0.5;
     this.faceY = 0.4;
     this.faceScale = 1.0;
-    // Face detector (Chrome/Edge built-in API)
-    this._faceDetector = null;
-    this._initFaceDetector();
-  }
-
-  _initFaceDetector() {
-    if (typeof FaceDetector !== 'undefined') {
-      try {
-        this._faceDetector = new FaceDetector({ fastMode: true, maxDetectedFaces: 1 });
-      } catch (e) {
-        // FaceDetector not supported
-      }
-    }
   }
 
   /**
-   * Detect face position from video element
-   * @param {HTMLVideoElement} video
+   * Detect face centroid from offscreen canvas using skin color detection.
+   * Works in all browsers, no external dependencies.
+   * @param {CanvasRenderingContext2D} ctx - offscreen canvas context with video frame
+   * @param {number} width - canvas width
+   * @param {number} height - canvas height
    */
-  async detectFace(video) {
-    if (!this._faceDetector || video.readyState < 2) return;
-    try {
-      const faces = await this._faceDetector.detect(video);
-      if (faces.length > 0) {
-        const box = faces[0].boundingBox;
-        const vw = video.videoWidth;
-        const vh = video.videoHeight;
-        // Normalize to 0-1, mirror X (camera is mirrored)
-        const rawX = 1 - (box.x + box.width / 2) / vw;
-        const rawY = (box.y + box.height / 2) / vh;
-        const rawScale = (box.width / vw) * 3; // scale factor based on face size
-        // Smooth with EMA
-        this.faceX = this.faceX * 0.7 + rawX * 0.3;
-        this.faceY = this.faceY * 0.7 + rawY * 0.3;
-        this.faceScale = this.faceScale * 0.8 + rawScale * 0.2;
+  detectFaceFromCanvas(ctx, width, height) {
+    // Sample every 8th pixel for performance
+    const step = 8;
+    const imgData = ctx.getImageData(0, 0, width, height);
+    const data = imgData.data;
+
+    let sumX = 0, sumY = 0, count = 0;
+    let minX = width, maxX = 0, minY = height, maxY = 0;
+
+    for (let y = 0; y < height; y += step) {
+      for (let x = 0; x < width; x += step) {
+        const i = (y * width + x) * 4;
+        const r = data[i], g = data[i + 1], b = data[i + 2];
+
+        if (isSkinColor(r, g, b)) {
+          sumX += x;
+          sumY += y;
+          count++;
+          if (x < minX) minX = x;
+          if (x > maxX) maxX = x;
+          if (y < minY) minY = y;
+          if (y > maxY) maxY = y;
+        }
       }
-    } catch (e) {
-      // Ignore detection errors
+    }
+
+    if (count > 20) { // need enough skin pixels to be confident
+      // Centroid normalized to 0-1, mirrored X (camera is mirrored)
+      const rawX = 1 - (sumX / count) / width;
+      const rawY = (sumY / count) / height;
+      // Face size estimate
+      const faceW = (maxX - minX) / width;
+      const rawScale = Math.max(0.6, Math.min(2.0, faceW * 3.5));
+
+      // Smooth with EMA
+      this.faceX = this.faceX * 0.75 + rawX * 0.25;
+      this.faceY = this.faceY * 0.75 + rawY * 0.25;
+      this.faceScale = this.faceScale * 0.85 + rawScale * 0.15;
     }
   }
 
@@ -109,11 +118,25 @@ export class AuraRenderer {
 
       ctx.fillStyle = gradient;
       ctx.beginPath();
-      // Ellipse — slightly taller than wide (head/body shape)
       ctx.ellipse(centerX, centerY, radius * 0.75, radius, 0, 0, Math.PI * 2);
       ctx.fill();
     }
   }
+}
+
+/**
+ * Skin color detection using YCbCr color space.
+ * Works across different skin tones.
+ */
+function isSkinColor(r, g, b) {
+  // Convert RGB to YCbCr
+  const y  =  0.299 * r + 0.587 * g + 0.114 * b;
+  const cb = -0.169 * r - 0.331 * g + 0.500 * b + 128;
+  const cr =  0.500 * r - 0.419 * g - 0.081 * b + 128;
+
+  // Skin color thresholds in YCbCr space
+  // These ranges work for a wide variety of skin tones
+  return y > 60 && cb > 77 && cb < 127 && cr > 133 && cr < 173;
 }
 
 function hexToRGBA(hex, alpha) {
