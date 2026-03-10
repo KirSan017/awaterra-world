@@ -57,7 +57,11 @@ export class AuraRenderer {
     if (count > 20) { // need enough skin pixels to be confident
       // Centroid normalized to 0-1, mirrored X (camera is mirrored)
       const rawX = 1 - (sumX / count) / width;
-      const rawY = (sumY / count) / height;
+      const rawCentroidY = (sumY / count) / height;
+      // Shift up: skin centroid is ~nose level, move up by ~40% of face height
+      // so aura centers around the whole head (forehead to chin)
+      const faceH = (maxY - minY) / height;
+      const rawY = rawCentroidY - faceH * 0.35;
       // Face size estimate
       const faceW = (maxX - minX) / width;
       const rawScale = Math.max(0.6, Math.min(2.0, faceW * 3.5));
