@@ -467,6 +467,14 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
+  cursor: pointer;
+  padding: 2px 0;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.param-row:active {
+  background: rgba(107, 159, 255, 0.08);
 }
 
 .param-name {
@@ -500,4 +508,70 @@ body {
   width: 28px;
   text-align: right;
   flex-shrink: 0;
+}
+
+/* ==================== Parameter Tooltip ==================== */
+
+.param-tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 12px;
+  right: 12px;
+  margin-bottom: 8px;
+  padding: 14px 16px;
+  background: rgba(10, 14, 28, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(60, 80, 140, 0.25);
+  border-radius: 10px;
+  z-index: 30;
+  animation: fadeSlideUp 0.2s ease;
+}
+
+.tooltip-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.tooltip-color {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.tooltip-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text-bright);
+}
+
+.tooltip-freq {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-left: auto;
+}
+
+.tooltip-meta {
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+}
+
+.tooltip-desc {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+.tooltip-source {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  padding-top: 6px;
+  border-top: 1px solid rgba(60, 80, 140, 0.15);
 }

@@ -232,6 +232,11 @@ async function startScanning() {
 
     frameCount++;
 
+    // Detect face position every ~10 frames for aura tracking
+    if (frameCount % 10 === 0) {
+      auraRenderer.detectFace(video);
+    }
+
     // Every ~15 frames (~500ms at 30fps): calculate vitals and update visuals
     if (frameCount % 15 === 0) {
       const hr = rppg.getHeartRate();
