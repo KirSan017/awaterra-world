@@ -19,8 +19,21 @@ let rppg = null;
 let auraRenderer = null;
 let awabandPanel = null;
 let lastBiofield = null;
+let smoothedBiofield = null;
 let lastHR = null;
 let frameCount = 0;
+
+const EMA_ALPHA = 0.15; // smoothing factor: lower = smoother (0.1-0.3 good range)
+
+/** Exponential moving average for biofield parameters */
+function smoothBiofield(raw, prev) {
+  if (!prev) return { ...raw };
+  const result = {};
+  for (const key of Object.keys(raw)) {
+    result[key] = Math.round(prev[key] * (1 - EMA_ALPHA) + raw[key] * EMA_ALPHA);
+  }
+  return result;
+}
 
 /** Switch visible screen */
 function showScreen(id) {
@@ -160,6 +173,7 @@ async function startScanning() {
   rppg = new RPPGProcessor();
   frameCount = 0;
   lastBiofield = null;
+  smoothedBiofield = null;
   lastHR = null;
 
   // Start camera
@@ -251,7 +265,9 @@ async function startScanning() {
 
       // Map to biofield
       const vitals = { hr, hrv, breathingRate, coherence, hrSmoothed };
-      lastBiofield = mapToBiofield(vitals, voiceMetrics);
+      const rawBiofield = mapToBiofield(vitals, voiceMetrics);
+      smoothedBiofield = smoothBiofield(rawBiofield, smoothedBiofield);
+      lastBiofield = smoothedBiofield;
       lastHR = hr;
 
       // Update status
