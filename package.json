@@ -6,8 +6,7 @@
     "build-index": "tsx scripts/build-index.ts",
     "migrate": "tsx scripts/migrate.ts",
     "dashboard": "tsx dashboard/server.ts",
-    "dev": "tsx watch dashboard/server.ts",
-    "build-scanner": "esbuild dashboard/public/scanner/main.js --bundle --outfile=dashboard/public/scanner/app.js --format=esm --target=es2022"
+    "dev": "tsx watch dashboard/server.ts"
   },
   "dependencies": {
     "express": "^4.21.0",
@@ -17,7 +16,6 @@
   "devDependencies": {
     "@types/express": "^5.0.0",
     "@types/node": "^22.0.0",
-    "esbuild": "^0.27.3",
     "tsx": "^4.19.0",
     "typescript": "^5.7.0"
   }

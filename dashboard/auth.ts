@@ -14,8 +14,8 @@ export function authMiddleware(req: Request, res: Response, next: NextFunction):
     return;
   }
 
-  // Allow static files, scanner, and login endpoint without auth
-  if (req.path === "/" || STATIC_EXT.test(req.path) || req.path.startsWith("/scanner") || req.path === "/api/login") {
+  // Allow static files and login endpoint without auth
+  if (req.path === "/" || STATIC_EXT.test(req.path) || req.path === "/api/login") {
     next();
     return;
   }
